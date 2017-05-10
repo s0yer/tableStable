@@ -21,7 +21,12 @@ void setup()
   // Pino de dados do servo 
   servoAzul.attach(9);
   servoVerm.attach(10);
-  
+
+  // test to start the servo in the first position balanced.
+  anguloIniAzul=60;
+  anguloIniVermeho=60;
+  servoAzul.write(anguloIniAzul);
+  servoVerm.write(anguloIniVermelho);
   
 } 
   // valores iniciais para estabilidade: x=0 , y=0, z= -1
@@ -29,12 +34,9 @@ void setup()
 void loop() 
   {     
   if (acelerometro.available()){
+	  
         acelerometro.read();
-  }else{
-       Serial.print("\t O Acelerometro não está acessível :/ ");
-  }
-
-
+	  
 	anguloIniAzul= acelerometro.cx*180; // calc of the new positon blue
 	servoAzul.write(anguloIniAzul);  //Move blue servo to new position
 	delay(15);  //Delay to move servo
@@ -43,8 +45,10 @@ void loop()
 	anguloIniVermelho= acelerometro.cy*180; // calc of the new positon red
 	servoVerm.write(anguloIniVermelho);  // Move red servo to new positon
 	delay(15);
-
-  
+	  
+  }else{
+       Serial.print("\t O Acelerometro não está acessível :/ ");
+  }
             
   printValorCelulas();
    
