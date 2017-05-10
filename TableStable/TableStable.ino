@@ -35,31 +35,16 @@ void loop()
   }
 
 
-  anguloIniAzul= acelerometro.cx*180;
+	anguloIniAzul= acelerometro.cx*180; // calc of the new positon blue
+	servoAzul.write(anguloIniAzul);  //Move blue servo to new position
+	delay(15);  //Delay to move servo
 
-  servoAzul.write(anguloIniAzul);  //Move o servo para o angulo de posição inicial graus
-  delay(15);  //Delay para o servo atingir a posiçao
-
-  /*if(acelerometro.cx>0){
-      anguloIniAzul = anguloIniAzul - 1 ;
-      
-   } else if(acelerometro.cx<0){
-              anguloIniAzul = anguloIniAzul + 1;
-            }else{
-              anguloIniAzul = anguloIniAzul;
-            } */
-  anguloIniVermelho= acelerometro.cy*180;
   
-  servoVerm.write(anguloIniVermelho);  
-  delay(15);
+	anguloIniVermelho= acelerometro.cy*180; // calc of the new positon red
+	servoVerm.write(anguloIniVermelho);  // Move red servo to new positon
+	delay(15);
 
-  /* if(acelerometro.cy>0){
-      anguloIniVermelho = anguloIniVermelho - 1 ;
-   } else if(acelerometro.cy<0){
-              anguloIniVermelho = anguloIniVermelho + 1;
-            }else{
-              anguloIniVermelho = anguloIniVermelho;
-            }*/
+  
             
   printValorCelulas();
    
