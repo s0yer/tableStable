@@ -2,17 +2,16 @@
 #include <Wire.h>
 #include <SFE_MMA8452Q.h>
 
-
-MMA8452Q acelerometro(0x1C);
+const int MPU=0x68;  
 
 Servo servoAzul;
 Servo servoVerm;
 
 int val, aux; 
-int anguloIniAzul;
-int anguloIniVermelho;
+int anguloAzul;
+int anguloVermelho;
 
-const int MPU=0x68;  
+
 
 //Variaveis para armazenar valores dos sensores
 int AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
@@ -31,72 +30,33 @@ void setup()
   //Inicializa o MPU-6050
   Wire.write(0); 
   Wire.endTransmission(true);
-  
-  acelerometro.init();
-  
+   
   // Pino de dados do servo 
   servoAzul.attach(9);
   servoVerm.attach(10);
 
   // test to start the servo in the first position balanced.
-  anguloIniAzul=60;
-  anguloIniVermelho=60;
-  servoAzul.write(anguloIniAzul);
-  servoVerm.write(anguloIniVermelho);
+  anguloAzul=60;
+  anguloVermelho=60;
+  servoAzul.write(anguloAzul);
+  servoVerm.write(anguloVermelho);
   
 } 
   // valores iniciais para estabilidade: x=0 , y=0, z= -1
   
 void loop() 
   {     
-  if (acelerometro.available()){
-	  
-    acelerometro.read();
+    calcGiroscopio();
+    printGiroscopio();
   	  
-  	anguloIniAzul= acelerometro.cx*180; // calc of the new positon blue
-  	servoAzul.write(anguloIniAzul);  //Move blue servo to new position
+  	anguloAzul= acelerometro.cx*180; // calc of the new positon blue
+  	servoAzul.write(anguloAzul);  //Move blue servo to new position
   	delay(15);  //Delay to move servo
   
     
-  	anguloIniVermelho= acelerometro.cy*180; // calc of the new positon red
-  	servoVerm.write(anguloIniVermelho);  // Move red servo to new positon
+  	anguloVermelho= acelerometro.cy*180; // calc of the new positon red
+  	servoVerm.write(anguloVermelho);  // Move red servo to new positon
   	delay(15);
-	  
-  }else{
-    Serial.print("\t O Acelerometro não está acessível :/ ");
-  }
-          
-  printValorCelulas();
-
-  calcGiroscopio();
-  printGiroscopio();
-}
-
-void printValorCelulas(){
-  Serial.print("valor inteiro x: \t");
-  Serial.print(acelerometro.x, 3);
-  Serial.print("\t");
-
-  Serial.print("valor calculado x: \t");
-  Serial.print(acelerometro.cx, 3);
-  Serial.println("\t");
-  
-  Serial.print("valor inteiro y: \t");
-  Serial.print(acelerometro.y, 3);
-  Serial.print("\t");
-
-  Serial.print("valor calculado y: \t");
-  Serial.print(acelerometro.cy, 3);
-  Serial.println("\t");
-  
-  Serial.print("valor inteiro z: \t");
-  Serial.print(acelerometro.z, 3);
-  Serial.print("\t");
-
-  Serial.print("valor calculado z: \t");
-  Serial.print(acelerometro.cz, 3);
-  Serial.println("\t");
-  
 }
 
 void printGiroscopio(){
