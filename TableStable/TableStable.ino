@@ -1,6 +1,6 @@
 #include <Servo.h> 
 #include <Wire.h>
-#include <SFE_MMA8452Q.h>
+
 
 const int MPU=0x68;  
 
@@ -49,7 +49,7 @@ void loop()
     calcGiroscopio();
     printGiroscopio();
   	  
-  	anguloAzul= acelerometro.cx*180; // calc of the new positon blue
+  	anguloAzul= 180; // calc of the new positon blue
   	servoAzul.write(anguloAzul);  //Move blue servo to new position
   	delay(15);  //Delay to move servo
   
