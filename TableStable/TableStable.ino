@@ -49,12 +49,12 @@ void loop()
     calcGiroscopio();
     printGiroscopio();
   	  
-  	anguloAzul= 180; // calc of the new positon blue
+  	anguloAzul= 60; // calc of the new positon blue
   	servoAzul.write(anguloAzul);  //Move blue servo to new position
   	delay(15);  //Delay to move servo
   
     
-  	anguloVermelho= acelerometro.cy*180; // calc of the new positon red
+  	anguloVermelho= 60; // calc of the new positon red
   	servoVerm.write(anguloVermelho);  // Move red servo to new positon
   	delay(15);
 }
