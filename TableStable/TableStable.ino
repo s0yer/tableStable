@@ -36,8 +36,8 @@ void setup()
   servoVerm.attach(10);
 
   // test to start the servo in the first position balanced.
-  anguloAzul=60;
-  anguloVermelho=60;
+  anguloAzul=40;
+  anguloVermelho=90;
   servoAzul.write(anguloAzul);
   servoVerm.write(anguloVermelho);
   
@@ -48,13 +48,27 @@ void loop()
   {     
     calcGiroscopio();
     printGiroscopio();
-  	  
-  	anguloAzul= 180; // calc of the new positon blue
+
+   /* if(GyY<){
+      anguloAzul= GyY/GyY*anguloAzul;
+      } 
+    if(GyY>){
+      anguloAzul= GyY*anguloAzul/GyY;
+      }
+    if(GyX<){
+      anguloVermelho= GyX/GyX*anguloAzul;
+      }
+    if(GyX>){
+      anguloVermelho= GyX*anguloAzul/GyX;
+      }
+    */
+    
+  	anguloAzul= 40; // porta 9 arduino, calc of the new positon blue
   	servoAzul.write(anguloAzul);  //Move blue servo to new position
   	delay(15);  //Delay to move servo
   
     
-  	anguloVermelho= acelerometro.cy*180; // calc of the new positon red
+  	anguloVermelho= 90; // porta 10 arduino, calc of the new positon red
   	servoVerm.write(anguloVermelho);  // Move red servo to new positon
   	delay(15);
 }
@@ -80,7 +94,8 @@ void calcGiroscopio(){
   
   //Solicita os dados do sensor
   Wire.requestFrom(MPU,14,true); 
-  
+
+    // ponto padrao para osciloscópio x=-1000 y=-200
    //Armazena o valor dos sensores nas variaveis correspondentes
   AcX=Wire.read()<<8|Wire.read(); //0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)     
   AcY=Wire.read()<<8|Wire.read(); //0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L)
