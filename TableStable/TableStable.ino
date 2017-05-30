@@ -7,9 +7,7 @@ const int MPU=0x68;
 Servo servoAzul;
 Servo servoVerm;
 
-int val, aux; 
-int anguloAzul;
-int anguloVermelho;
+int inigyx=0, inigyy=0, anguloAzul, anguloVermelho;
 
 
 
@@ -30,6 +28,11 @@ void setup()
   //Inicializa o MPU-6050
   Wire.write(0); 
   Wire.endTransmission(true);
+  
+  // seta os valores iniciais de comparação para GyY e GyX
+  calcGiroscopio();
+  inigyx=GyX;
+  inigyy=GyY;
    
   // Pino de dados do servo 
   servoAzul.attach(9);
@@ -48,20 +51,19 @@ void loop()
   {     
     calcGiroscopio();
     printGiroscopio();
-
-   /* if(GyY<){
-      anguloAzul= GyY/GyY*anguloAzul;
+  
+    if(GyY<inigyy){
+      anguloAzul= anguloAzul+1;
       } 
-    if(GyY>){
-      anguloAzul= GyY*anguloAzul/GyY;
+    if(GyY>inigyy){
+      anguloAzul= anguloAzul-1;
       }
-    if(GyX<){
-      anguloVermelho= GyX/GyX*anguloAzul;
+    if(GyX<inigyx){
+      anguloVermelho= anguloVermelho+1;
       }
-    if(GyX>){
-      anguloVermelho= GyX*anguloAzul/GyX;
+    if(GyX>inigyx){
+      anguloVermelho= anguloVermelho-1;
       }
-    */
     
   	anguloAzul= 40; // porta 9 arduino, calc of the new positon blue
   	servoAzul.write(anguloAzul);  //Move blue servo to new position
