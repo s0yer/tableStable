@@ -2,10 +2,11 @@
 #include <Wire.h>
 
 const int MPU=0x68;  
-
+// variáveis para o servo motor
 Servo servoAzul;
 Servo servoVerm;
 
+// variáveis utilizadas no algorítmo de controle
 int inigyx=0, inigyy=0, anguloAzul, anguloVermelho;
 
 //Variaveis para armazenar valores dos sensores
@@ -39,19 +40,18 @@ void setup()
   anguloVermelho=90;
   servoAzul.write(anguloAzul);
   servoVerm.write(anguloVermelho);
-  
 } 
  
 void loop() 
   {     
     calcGiroscopio();
     printGiroscopio();
-
+    
   //alterações no eixo Y, implicam em mudanças no servo vermelho. 
    if(GyY<inigyy){
        anguloVermelho= anguloVermelho+1;
       } 
-    if(GyY>inigyy){
+   if(GyY>inigyy){
       anguloVermelho= anguloVermelho-1;
       }
 
@@ -66,7 +66,7 @@ void loop()
   	// porta 9 arduino, setado novo valor para o servo azul
   	servoAzul.write(anguloAzul);  //Movimenta o servo azul para a posição
   	delay(15);  //Delay para movimentar o sevo
-  
+
   	// porta 10 arduino, setado novo valor para o servo vermlho
   	servoVerm.write(anguloVermelho);  // Move red servo to new positon
   	delay(15);  //Delay para movimentar o sevo
@@ -82,13 +82,12 @@ void printGiroscopio(){
   Serial.print(" | Y = "); Serial.print(GyY);
   Serial.print(" | Z = "); Serial.print(GyZ);
   Serial.print(" | Temp = "); Serial.println(Tmp/340.00+36.53);
-  
   }
 
 void calcGiroscopio(){
-
+ //inicializa os componentes
   Wire.beginTransmission(MPU);
-  Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
+  Wire.write(0x3B);  // inicializa com o registrador 0x3B (ACCEL_XOUT_H)
   Wire.endTransmission(false);
   
   //Solicita os dados do sensor
