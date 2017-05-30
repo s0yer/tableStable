@@ -51,8 +51,8 @@ void loop()
   {     
     calcGiroscopio();
     printGiroscopio();
-
-   if(GyY<inigyy){
+  
+    if(GyY<inigyy){
       anguloAzul= anguloAzul+1;
       } 
     if(GyY>inigyy){
@@ -64,7 +64,6 @@ void loop()
     if(GyX>inigyx){
       anguloVermelho= anguloVermelho-1;
       }
-    
     
   	anguloAzul= 40; // porta 9 arduino, calc of the new positon blue
   	servoAzul.write(anguloAzul);  //Move blue servo to new position
