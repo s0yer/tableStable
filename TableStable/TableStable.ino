@@ -2,18 +2,18 @@
 #include <Servo.h> 
 #include <Wire.h>
 
-// 
+// variável do tipo sensor.
 const int MPU=0x68;  
 
-// variáveis para o servo motor
+// variáveis para o servo motor.
 Servo servoAzul;
 Servo servoVerm;
 
-// variáveis utilizadas no algorítmo de controle
+// variáveis utilizadas no algorítmo de controle.
 int inigyx=0, inigyy=0, anguloAzul=0, anguloVermelho=0, acumulador=0;
 int iniAzul=0, iniVermelho=0;
 
-//Variaveis para armazenar valores dos sensores do MPU6050
+//Variaveis para armazenar valores dos sensores do MPU6050.
 int AcX=0,AcY=0,AcZ=0,Tmp,GyX=0,GyY=0,GyZ=0;
 
 void setup() 
@@ -141,7 +141,7 @@ void calcGiroscopio(){
    /* Armazena o valor dos sensores nas variaveis correspondentes,
     *os endereços de memória são acessados 8 vezes, e cada vez o acesso 
     *recebe 2bits de valores em dois endereços distintos. No final teremos
-    *16bits ou 2Bytes para cada variável.
+    *16bits para cada variável.
     */
     
   AcX=Wire.read()<<8|Wire.read(); //0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)     
